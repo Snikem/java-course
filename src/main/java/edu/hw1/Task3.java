@@ -1,7 +1,16 @@
 package edu.hw1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task3 {
-    public static int min_in_array(int[] arr) {
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task3() {
+    }
+
+    public static int minInArray(int[] arr) {
         int result = arr[0];
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] < result) {
@@ -11,7 +20,7 @@ public class Task3 {
         return result;
     }
 
-    public static int max_in_array(int[] arr) {
+    public static int maxInArray(int[] arr) {
         int result = arr[0];
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] > result) {
@@ -22,11 +31,11 @@ public class Task3 {
     }
 
     public static boolean isNestable(int[] arr1, int[] arr2) {
-        int max_ar1 = max_in_array(arr1);
-        int max_ar2 = max_in_array(arr2);
-        int min_ar1 = min_in_array(arr1);
-        int min_ar2 = min_in_array(arr2);
-        if ((min_ar1 > min_ar2) && (max_ar1 < max_ar2)) {
+        int maxAr1 = maxInArray(arr1);
+        int maxAr2 = maxInArray(arr2);
+        int minAr1 = minInArray(arr1);
+        int minAr2 = minInArray(arr2);
+        if ((minAr1 > minAr2) && (maxAr1 < maxAr2)) {
             return true;
         }
         return false;
@@ -35,7 +44,7 @@ public class Task3 {
     public static void main(String[] args) {
         int[] a1 = new int[] {1, 2, 3, 4};
         int[] a2 = new int[] {2, 3};
-        System.out.println(isNestable(a1, a2));
+        LOGGER.info(isNestable(a1, a2));
 
     }
 }

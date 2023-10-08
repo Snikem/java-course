@@ -1,6 +1,14 @@
 package edu.hw1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task7 {
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task7() {
+    }
 
     static int rotateLeft(int n, int shift) {
         String str = Integer.toBinaryString(n);
@@ -16,7 +24,7 @@ public class Task7 {
     }
 
     public static void main(String[] args) {
-        System.out.println(rotateLeft(17, 2));
+        LOGGER.info(rotateLeft(17, 2));
 
     }
 }

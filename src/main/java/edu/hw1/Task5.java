@@ -1,16 +1,26 @@
 package edu.hw1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task5 {
 
-    public static boolean isPalindrome(int n) {
-        String str_n = String.valueOf(n);
-        StringBuilder sb = new StringBuilder(str_n);
-        sb.reverse();
-        String str_n_reverse = sb.toString();
-        return str_n_reverse.equals(str_n);
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task5() {
     }
 
-    public static int toDescendant(int n) {
+    public static boolean isPalindrome(int n) {
+        String strN = String.valueOf(n);
+        StringBuilder sb = new StringBuilder(strN);
+        sb.reverse();
+        String strNReverse = sb.toString();
+        return strNReverse.equals(strN);
+    }
+
+    public static int toDescendant(int num) {
+        int n = num;
         String result = "";
         int i = 0;
         while (n != 0) {
@@ -21,7 +31,7 @@ public class Task5 {
         return Integer.parseInt(result, 10);
     }
 
-    public static boolean isPalindromeDescendant(int n) { // на числа у которых количество цифр нечестное и нет потомков возвращает false
+    public static boolean isPalindromeDescendant(int n) {
         if (String.valueOf(n).length() <= 1) {
             return false;
         }
@@ -36,6 +46,6 @@ public class Task5 {
     }
 
     public static void main(String[] args) {
-        System.out.println(isPalindromeDescendant(123812));
+        LOGGER.info(isPalindromeDescendant(123812));
     }
 }

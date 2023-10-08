@@ -1,6 +1,14 @@
 package edu.hw1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task4 {
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task4() {
+    }
 
     public static String fixString(String str) {
         String result = "";
@@ -14,7 +22,7 @@ public class Task4 {
     }
 
     public static void main(String[] args) {
-        System.out.println(fixString("badce"));
+        LOGGER.info(fixString("badce"));
 
     }
 }

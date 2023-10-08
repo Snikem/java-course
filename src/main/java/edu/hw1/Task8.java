@@ -1,8 +1,15 @@
 package edu.hw1;
 
-import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task8 {
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task8() {
+    }
+
     public static boolean knightBoardCapture(int[][] arr) {
         int[] shifts = new int[] {2, 1, 2, -1, -2, 1, -2, -1, 1, 2, 1, -2, -1, 2, -1, -2};
         int len = arr.length;
@@ -14,7 +21,7 @@ public class Task8 {
                 for (int g = 0; g < 8; g += 2) {
                     try {
                         if (arr[i + shifts[g]][j + shifts[g + 1]] == 1) {
-                            System.out.println(i + " " + j);
+                            //System.out.println(i + " " + j);
                             return false;
                         }
                     } catch (ArrayIndexOutOfBoundsException exception) {
@@ -68,7 +75,7 @@ public class Task8 {
             {0, 1, 0, 0, 0, 0, 0, 1},
             {1, 0, 1, 0, 1, 0, 0, 0}
         };
-        System.out.println(knightBoardCapture(a4));
+        LOGGER.info(knightBoardCapture(a4));
 
     }
 

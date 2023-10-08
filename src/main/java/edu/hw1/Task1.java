@@ -1,12 +1,23 @@
 package edu.hw1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task1 {
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task1() {
+    }
 
     public static int minutesToSeconds(String time) {
-        int len_str = time.length();
-        int min = Integer.valueOf(time.substring(0, len_str - 3));
-        int sec = Integer.valueOf(time.substring(len_str - 2, len_str));
-        if (sec >= 60) {
+        int lenStr = time.length();
+        int countDigitSecInInput1 = 3;
+        int countDigitSecInInput2 = 2;
+        int secInMinutes = 60;
+        int min = Integer.valueOf(time.substring(0, lenStr - countDigitSecInInput1));
+        int sec = Integer.valueOf(time.substring(lenStr - countDigitSecInInput2, lenStr));
+        if (sec >= secInMinutes) {
             return -1;
         }
 
@@ -14,6 +25,6 @@ public class Task1 {
     }
 
     public static void main(String[] args) {
-        System.out.println(minutesToSeconds("13:56"));
+        LOGGER.info(minutesToSeconds("13:56"));
     }
 }

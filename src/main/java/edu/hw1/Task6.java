@@ -1,13 +1,21 @@
 package edu.hw1;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+
+@SuppressWarnings({"uncommentedmain", "MagicNumber", "ImportOrder"})
 public class Task6 {
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task6() {
+    }
 
     public static int countK(int n, int count) {
+        int myCount = count;
         if (n == 6174) {
-            return count;
+            return myCount;
         }
         int[] arr = new int[] {n / 1000, n % 1000 / 100, n % 100 / 10, n % 10};
         Arrays.sort(arr);
@@ -19,12 +27,12 @@ public class Task6 {
             toMin += Math.pow(10, 3 - i) * arr[i];
         }
         //System.out.println(toMax+" - "+toMin+" = "+(toMax-toMin));
-        count++;
-        return countK(toMax - toMin, count);
+        myCount++;
+        return countK(toMax - toMin, myCount);
     }
 
     public static void main(String[] args) {
-        System.out.println(countK(2195, 0));
+        LOGGER.info(countK(2195, 0));
 
     }
 }
