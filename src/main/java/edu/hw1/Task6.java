@@ -21,14 +21,14 @@ public class Task6 {
             toMax+= Math.pow(10,i) * arr[i];
             toMin+= Math.pow(10,3 - i) * arr[i];
         }
-        System.out.println(toMax - toMin);
+        //System.out.println(toMax+" - "+toMin+" = "+(toMax-toMin));
         count++;
         return countK(toMax - toMin,count);
     }
 
     public static void main(String[] args)
     {
-        System.out.println(countK(1234,0));
+        System.out.println(countK(2195,0));
 
     }
 }

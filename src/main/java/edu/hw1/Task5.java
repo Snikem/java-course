@@ -13,41 +13,32 @@ public class Task5 {
     }
     public static int toDescendant(int n)
     {
-        int result = 0;
+        String result = "";
         int i = 0;
         while (n != 0)
         {
-            result +=(n % 10 + (n % 100 / 10)) * Math.pow(10,i);
+            result = (n % 10 + (n % 100 / 10)) + result;
             n/=100;
             i++;
         }
-        return result;
+        return Integer.parseInt(result,10);
     }
 
-    public static boolean isPalindromeDescendantRecurse(int n)
-    {
-        if(String.valueOf(n).length() <= 1)
-        {
+    public static boolean isPalindromeDescendant(int n) { // на числа у которых количество цифр нечестное и нет потомков возвращает false
+        if (String.valueOf(n).length() <= 1) {
             return false;
         }
-        if(isPalindrome(n))
-        {
+        if (isPalindrome(n)) {
             return true;
         }
-        return isPalindromeDescendantRecurse(toDescendant(n));
-
-    }
-
-    public static boolean isPalindromeDescendant(int n)
-    {
-        if(String.valueOf(n).length() % 2 == 1)
-        {
-            n*=10;
+        if (String.valueOf(n).length() % 2 == 1) {
+            return false;
         }
-        return isPalindromeDescendantRecurse(n);
+        return isPalindromeDescendant(toDescendant(n));
+
     }
     public static void main(String[] args)
     {
-        System.out.println(isPalindromeDescendant(220));
+        System.out.println(isPalindromeDescendant(123812));
     }
 }
