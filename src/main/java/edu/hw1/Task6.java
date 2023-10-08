@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-@SuppressWarnings({"uncommentedmain", "MagicNumber", "ImportOrder"})
+@SuppressWarnings({"uncommentedmain", "MagicNumber"})
 public class Task6 {
     private final static Logger LOGGER = LogManager.getLogger();
 
