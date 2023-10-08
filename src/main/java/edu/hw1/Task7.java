@@ -15,6 +15,7 @@ public class Task7 {
         str = str.substring(str.length() - shift) + str.substring(0,str.length() - shift);
         return Integer.parseInt(str,2);
 
+
     }
     public static void main(String[] args)
     {
