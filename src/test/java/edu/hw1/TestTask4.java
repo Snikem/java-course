@@ -1,12 +1,13 @@
 package edu.hw1;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class TestTask4 {
     @Test
     @DisplayName("Ремонт строки")
-    void testFixString()
-    {
+    void testFixString() {
         String str1 = "оПомигети псаривьтс ртко!и";//Помогите исправить строки!
         String str2 = "123456";//
         String str3 = "hTsii  s aimex dpus rtni.g";//This is a mixed up string.

@@ -7,8 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class TestTask1 {
     @Test
     @DisplayName("Тест функции minutesToSeconds")
-    void TestMinutesToSeconds()
-    {
+    void TestMinutesToSeconds() {
         String t1 = "01:00"; // 1 * 60 + 0 = 60
         String t2 = "13:56";// 13 * 60 + 56 = 836
         String t3 = "10:60";//60 >= 60 -> -1

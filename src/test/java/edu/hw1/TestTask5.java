@@ -1,12 +1,13 @@
 package edu.hw1;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class TestTask5 {
     @Test
     @DisplayName("Особый палиндром")
-    void testIsPalindromeDescendant()
-    {
+    void testIsPalindromeDescendant() {
         int t1 = 11211230;// true 11211230 -> 2333 -> 56 -> 11
         int t2 = 13001120;//  true  13001120 -> 4022 ➞ 44
         int t3 = 23336014; // true  23336014 -> 5665

@@ -7,8 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class TestTask2 {
     @Test
     @DisplayName("тест функции подсчета цифр")
-    void testCountDigits()
-    {
+    void testCountDigits() {
         int a1 = 4666; // 4
         int a2 = 544; // 3
         int a3 = 0;// 1
