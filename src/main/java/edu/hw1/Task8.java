@@ -3,11 +3,18 @@ package edu.hw1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings({"uncommentedmain", "MagicNumber"})
+@SuppressWarnings({"MagicNumber"})
 public class Task8 {
     private final static Logger LOGGER = LogManager.getLogger();
 
     private Task8() {
+    }
+
+    public static boolean isOutOfBorders(int i, int j) {
+        if (i < 0 || i > 7 || j < 0 || j > 7) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean knightBoardCapture(int[][] arr) {
@@ -19,64 +26,16 @@ public class Task8 {
                     continue;
                 }
                 for (int g = 0; g < 8; g += 2) {
-                    try {
+                    if (!isOutOfBorders(i + shifts[g], j + shifts[g + 1])) {
                         if (arr[i + shifts[g]][j + shifts[g + 1]] == 1) {
-                            //System.out.println(i + " " + j);
                             return false;
                         }
-                    } catch (ArrayIndexOutOfBoundsException exception) {
-
                     }
 
                 }
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        int[][] a1 = new int[][] {
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 1, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0}
-        };
-        int[][] a2 = new int[][] {
-            {1, 0, 1, 0, 1, 0, 1, 0},
-            {0, 1, 0, 1, 0, 1, 0, 1},
-            {0, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 1, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 0, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 1, 0, 1, 0, 1}
-        };
-        int[][] a3 = new int[][] {
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0}
-        };
-        int[][] a4 = new int[][] {//true
-            {1, 0, 0, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {1, 0, 0, 0, 1, 0, 1, 0},
-            {0, 0, 0, 0, 0, 1, 0, 0},
-            {0, 0, 1, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 0, 0}
-        };
-        LOGGER.info(knightBoardCapture(a4));
-
     }
 
 }

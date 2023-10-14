@@ -3,7 +3,7 @@ package edu.hw1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings({"uncommentedmain", "MagicNumber"})
+@SuppressWarnings({"MagicNumber"})
 public class Task3 {
     private final static Logger LOGGER = LogManager.getLogger();
 
@@ -39,12 +39,5 @@ public class Task3 {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        int[] a1 = new int[] {1, 2, 3, 4};
-        int[] a2 = new int[] {2, 3};
-        LOGGER.info(isNestable(a1, a2));
-
     }
 }

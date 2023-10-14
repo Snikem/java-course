@@ -3,7 +3,7 @@ package edu.hw1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings({"uncommentedmain", "MagicNumber"})
+@SuppressWarnings({"MagicNumber"})
 public class Task5 {
 
     private final static Logger LOGGER = LogManager.getLogger();
@@ -22,11 +22,9 @@ public class Task5 {
     public static int toDescendant(int num) {
         int n = num;
         String result = "";
-        int i = 0;
         while (n != 0) {
             result = (n % 10 + (n % 100 / 10)) + result;
             n /= 100;
-            i++;
         }
         return Integer.parseInt(result, 10);
     }
@@ -43,9 +41,5 @@ public class Task5 {
         }
         return isPalindromeDescendant(toDescendant(n));
 
-    }
-
-    public static void main(String[] args) {
-        LOGGER.info(isPalindromeDescendant(123812));
     }
 }
