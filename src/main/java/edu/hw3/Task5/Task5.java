@@ -1,14 +1,16 @@
 package edu.hw3.Task5;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Task5 {
     private final static Logger LOGGER = LogManager.getLogger();
+
+    private Task5() {
+    }
 
     private static String replaseFirstnameLastname(String name) {
         String[] names = name.split(" ");
@@ -43,9 +45,4 @@ public class Task5 {
 
     }
 
-    public static void main(String[] args) {
-        List<String> list = new ArrayList<>(Arrays.asList("Paul", "Leonhard Euler", "Carl Gauss"));
-        LOGGER.info(parseContacts(list, "DESC"));
-
-    }
 }

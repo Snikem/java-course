@@ -1,11 +1,14 @@
 package edu.hw3.Task6;
 
-import java.util.ArrayList;
 import java.util.PriorityQueue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class StockExchange implements StockMarket{
+public class StockExchange implements StockMarket {
+    private final static Logger LOGGER = LogManager.getLogger();
     PriorityQueue<Stock> allStocks;
     String nameExchange;
+
     public StockExchange(String name) {
         nameExchange = name;
         allStocks = new PriorityQueue<Stock>();
@@ -13,7 +16,7 @@ public class StockExchange implements StockMarket{
 
     @Override
     public void add(Stock stock) {
-        allStocks.add(stock);
+        allStocks.offer(stock);
 
     }
 
