@@ -17,21 +17,19 @@ public class Maze {
     private int counter = 1;
     private final int empty = 0;
     private final static Logger LOGGER = LogManager.getLogger();
-    public void createEmptyMaze()
-    {
+
+    public void createEmptyMaze() {
         List<Boolean> empty;
         hasRightWall = new ArrayList<List<Boolean>>(height);
         hasDownWall = new ArrayList<List<Boolean>>(height);
-        for (int i = 0;i < height;i++) {
+        for (int i = 0; i < height; i++) {
             empty = new ArrayList<>(width);
-            for(int j = 0;j < width;j++)
-            {
+            for (int j = 0; j < width; j++) {
                 empty.add(false);
             }
             hasDownWall.add(empty);
             empty = new ArrayList<>(width);
-            for(int j = 0;j < width;j++)
-            {
+            for (int j = 0; j < width; j++) {
                 empty.add(false);
             }
             hasRightWall.add(empty);
@@ -46,67 +44,59 @@ public class Maze {
         createEmptyMaze();
         generateMaze();
 
-
     }
 
-    private void fillEmptyFirst()
-    {
-        for(int i = 0;i < width;i++)
-        {
+    private void fillEmptyFirst() {
+        for (int i = 0; i < width; i++) {
             setsElem.add(empty);
         }
     }
 
-    private void initUniqueSets()
-    {
-        for(int i = 0;i < width;i++)
-        {
-            if(setsElem.get(i) == empty)
-            {
-                setsElem.set(i,counter);
+    private void initUniqueSets() {
+        for (int i = 0; i < width; i++) {
+            if (setsElem.get(i) == empty) {
+                setsElem.set(i, counter);
                 counter++;
             }
         }
     }
 
-    private Boolean getRandomBoolean()
-    {
+    private Boolean getRandomBoolean() {
         Random random = new Random();
-        int a = random.nextInt(0,10);
-        if(a > 6)
-        {
+        int a = random.nextInt(0, 10);
+        if (a > 6) {
             return true;
         }
         return false;
     }
 
-    public void mergeSet(int index, int elem)
-    {
+    public void mergeSet(int index, int elem) {
         int mutableSet = setsElem.get(index + 1);
         for (int j = 0; j < width; j++) {
             /* Проверка ячеек на одно множество */
             if (setsElem.get(j) == mutableSet) {
                 /* Объединение ячейки в множество */
-                setsElem.set(j,elem);
+                setsElem.set(j, elem);
             }
         }
     }
-    private void addingVerticalWalls(int j)
-    {
+
+    private void addingVerticalWalls(int j) {
         for (int i = 0; i < width - 1; i++) {
             /* Ставим стенку или нет */
             boolean choise = getRandomBoolean();
             /* Проверка условия для предотовращения зацикливания */
             if (choise || Objects.equals(setsElem.get(i), setsElem.get(i + 1))) {
-                hasRightWall.get(j).set(i,true);
+                hasRightWall.get(j).set(i, true);
             } else {
                 /* Объединение ячеек в одно множество */
                 mergeSet(i, setsElem.get(i));
             }
         }
         /* Добавление правой стенки в последней ячейки */
-        hasRightWall.get(j).set(width - 1,true);
+        hasRightWall.get(j).set(width - 1, true);
     }
+
     public void addingHorizontalWalls(int row) {
         for (int i = 0; i < width; i++) {
             /* Ставим стенку или нет */
@@ -114,7 +104,7 @@ public class Maze {
             /* Проверка, что множество имеет более одной ячейки (это предовратит замкнутые области  */
             if (calculateUniqueSet(setsElem.get(i)) != 1 && choise) {
                 /* Ставим горизонтальную стенку */
-                hasDownWall.get(row).set(i,true);
+                hasDownWall.get(row).set(i, true);
             }
         }
     }
@@ -134,7 +124,7 @@ public class Maze {
     private void checkedHorizontalWalls(int j) {
         for (int i = 0; i < width; i++) {
             if (calculateHorizontalWalls(setsElem.get(i), j) == 0) {
-                hasDownWall.get(j).set(i,false);
+                hasDownWall.get(j).set(i, false);
             }
         }
     }
@@ -149,11 +139,12 @@ public class Maze {
         }
         return countHorizontalWalls;
     }
+
     private void preparatingNewLine(int row) {
         for (int i = 0; i < width; i++) {
             if (hasDownWall.get(row).get(i)) {
                 /* Присваиваем ячейки пустое множество */
-                setsElem.set(i,empty);
+                setsElem.set(i, empty);
             }
         }
     }
@@ -168,21 +159,20 @@ public class Maze {
     private void checkedEndLine() {
         for (int i = 0; i < width - 1; i++) {
             /* Проверка условия пункта 5.2.1 */
-            if (setsElem.get(i) != setsElem.get(i+1)) {
+            if (setsElem.get(i) != setsElem.get(i + 1)) {
                 /* Убираем вертикальную стенку */
-                hasRightWall.get(height - 1).set(i,false);
+                hasRightWall.get(height - 1).set(i, false);
                 /* Объединяем множества */
                 mergeSet(i, setsElem.get(i));
             }
             /* Добавляем горизонтальные стенки */
-            hasDownWall.get(height - 1).set(i,true);
+            hasDownWall.get(height - 1).set(i, true);
         }
         /* Добавляем горизонтальную стенку в последней ячейке */
-       // hasDownWall.get(height - 1).set(width - 1,true);
+        // hasDownWall.get(height - 1).set(width - 1,true);
     }
 
-    private void generateMaze()
-    {
+    private void generateMaze() {
         fillEmptyFirst();
         for (int j = 0; j < height - 1; j++) {
             /* Шаг 2 */
@@ -199,48 +189,111 @@ public class Maze {
         addingEndLine();
 
     }
-    public void printMaze2()
+
+    public List<Coordinates> solve(List<Coordinates> list) {
+        Coordinates current = list.getLast();
+        Coordinates from = list.get(list.size() - 2);
+        if(current.xCols() == (width - 1) && current.yRows()== (height - 1))
+        {
+            return list;
+        }
+        if (current.xCols() + 1 < width) {
+            if (from.xCols() != current.xCols() + 1) {
+                if (!hasRightWall.get(current.yRows()).get(current.xCols())) {
+                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
+                    temp.add(new Coordinates(current.xCols()+1,current.yRows()));
+                    List<Coordinates> res = solve(temp);
+                    if(res!= null)
+                    {
+                        return res;
+                    }
+                }
+            }
+
+        }
+        if (current.xCols() - 1 >= 0) {
+            if (from.xCols() != current.xCols() - 1) {
+                if (!hasRightWall.get(current.yRows()).get(current.xCols()-1)) {
+                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
+                    temp.add(new Coordinates(current.xCols()-1,current.yRows()));
+                    List<Coordinates> res = solve(temp);
+                    if(res!= null)
+                    {
+                        return res;
+                    }
+                }
+            }
+
+        }
+        if (current.yRows() + 1 < height) {
+            if (from.yRows() != current.yRows() + 1) {
+                if (!hasDownWall.get(current.yRows()).get(current.xCols())) {
+                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
+                    temp.add(new Coordinates(current.xCols(),current.yRows() + 1));
+                    List<Coordinates> res = solve(temp);
+                    if(res!= null)
+                    {
+                        return res;
+                    }
+                }
+
+            }
+        }
+        if (current.yRows() - 1 >= 0) {
+            if (from.yRows() != current.yRows() - 1) {
+                if (!hasDownWall.get(current.yRows() - 1).get(current.xCols())) {
+                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
+                    temp.add(new Coordinates(current.xCols(),current.yRows() - 1));
+                    List<Coordinates> res = solve(temp);
+                    if(res!= null)
+                    {
+                        return res;
+                    }
+                }
+            }
+        }
+        return null;
+
+    }
+
+    public void printSolveMaze(List<Coordinates> list)
     {
         System.out.print("##");
-        for(int i = 0;i < width;i++)
-        {
+        for (int i = 0; i < width; i++) {
             System.out.print("####");
         }
         System.out.println();
 
-
-        for(int i = 0;i < height;i++)
-        {
-            if(i!=0)
-            {
+        for (int i = 0; i < height; i++) {
+            if (i != 0) {
                 System.out.print("##");
-            }
-            else
-            {
+            } else {
                 System.out.print("  ");
             }
-            for (int j = 0; j < width;j++)
-            {
-                if(hasRightWall.get(i).get(j))
-                {
-                    System.out.print("  ##");
+            for (int j = 0; j < width; j++) {
+                if(list.contains(new Coordinates(j,i))) {
+                    if (hasRightWall.get(i).get(j)) {
+                        System.out.print("<>##");
 
+                    } else {
+                        System.out.print("<>  ");
+                    }
                 }
-                else
-                {
-                    System.out.print("    ");
+                else {
+                    if (hasRightWall.get(i).get(j)) {
+                        System.out.print("  ##");
+
+                    } else {
+                        System.out.print("    ");
+                    }
                 }
             }
             System.out.println();
             System.out.print("##");
-            for (int j = 0; j < width;j++)
-            {
-                if(hasDownWall.get(i).get(j))
-                {
+            for (int j = 0; j < width; j++) {
+                if (hasDownWall.get(i).get(j)) {
                     System.out.print("####");
-                }
-                else
-                {
+                } else {
                     System.out.print("  ##");
                 }
             }
@@ -248,35 +301,60 @@ public class Maze {
         }
     }
 
-    public void printMaze()
-    {
+    public void printMaze2() {
+        System.out.print("##");
+        for (int i = 0; i < width; i++) {
+            System.out.print("####");
+        }
+        System.out.println();
+
+        for (int i = 0; i < height; i++) {
+            if (i != 0) {
+                System.out.print("##");
+            } else {
+                System.out.print("  ");
+            }
+            for (int j = 0; j < width; j++) {
+                if (hasRightWall.get(i).get(j)) {
+                    System.out.print("  ##");
+
+                } else {
+                    System.out.print("    ");
+                }
+            }
+            System.out.println();
+            System.out.print("##");
+            for (int j = 0; j < width; j++) {
+                if (hasDownWall.get(i).get(j)) {
+                    System.out.print("####");
+                } else {
+                    System.out.print("  ##");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public void printMaze() {
         System.out.print("   .");
-        for (int i = 1;i < width;i++)
-        {
+        for (int i = 1; i < width; i++) {
             System.out.print("__.");
         }
         System.out.println();
-        for(int i = 0;i < height;i++)
-        {
+        for (int i = 0; i < height; i++) {
             System.out.print("|");
-            for (int j = 0; j < width;j++)
-            {
+            for (int j = 0; j < width; j++) {
 
-                if(hasDownWall.get(i).get(j))
-                {
+                if (hasDownWall.get(i).get(j)) {
                     System.out.print("__");
-                }
-                else
-                {
+                } else {
                     System.out.print("  ");
                 }
-                if(hasRightWall.get(i).get(j))
-                {
-                        System.out.print("|");
+                if (hasRightWall.get(i).get(j)) {
+                    System.out.print("|");
 
-                }
-                else
-                {
+                } else {
                     System.out.print(".");
                 }
             }

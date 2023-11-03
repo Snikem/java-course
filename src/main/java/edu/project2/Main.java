@@ -33,7 +33,13 @@ public final class Main {
 //        LOGGER.info(t);
 //        t.get(2).set(0,20);
 //        LOGGER.info(t);
-       Maze maze = new Maze(9,9);
+       Maze maze = new Maze(50,50);
        maze.printMaze2();
+       List<Coordinates> list = new ArrayList<>();
+        list.add(new Coordinates(-1,0));
+       list.add(new Coordinates(0,0));
+        List<Coordinates> list2 = maze.solve(list);
+        maze.printSolveMaze(list2);
+        LOGGER.info(list2);
     }
 }
