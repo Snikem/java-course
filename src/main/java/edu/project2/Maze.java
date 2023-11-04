@@ -1,13 +1,14 @@
 package edu.project2;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.logging.Handler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings({"MagicNumber", "CyclomaticComplexity",
+    "ReturnCount", "RegexpSinglelineJava", "MultipleStringLiterals"})
 public class Maze {
     private int width;
     private int height;
@@ -16,23 +17,23 @@ public class Maze {
     private List<Integer> setsElem;
     private int counter = 1;
     private final int empty = 0;
+    private List<Boolean> emptyArray;
     private final static Logger LOGGER = LogManager.getLogger();
 
     public void createEmptyMaze() {
-        List<Boolean> empty;
         hasRightWall = new ArrayList<List<Boolean>>(height);
         hasDownWall = new ArrayList<List<Boolean>>(height);
         for (int i = 0; i < height; i++) {
-            empty = new ArrayList<>(width);
+            emptyArray = new ArrayList<>(width);
             for (int j = 0; j < width; j++) {
-                empty.add(false);
+                emptyArray.add(false);
             }
-            hasDownWall.add(empty);
-            empty = new ArrayList<>(width);
+            hasDownWall.add(emptyArray);
+            emptyArray = new ArrayList<>(width);
             for (int j = 0; j < width; j++) {
-                empty.add(false);
+                emptyArray.add(false);
             }
-            hasRightWall.add(empty);
+            hasRightWall.add(emptyArray);
         }
         setsElem = new ArrayList<>(width);
 
@@ -42,7 +43,12 @@ public class Maze {
         this.width = width;
         this.height = height;
         createEmptyMaze();
-        generateMaze();
+        if (width == 0 || height == 0) {
+            LOGGER.info("maze cant be generate");
+        } else {
+            generateMaze();
+        }
+
 
     }
 
@@ -190,74 +196,66 @@ public class Maze {
 
     }
 
-    public List<Coordinates> solve(List<Coordinates> list) {
+    public List<Coordinates> solve() {
+        List<Coordinates> list = new ArrayList<>();
+        list.add(new Coordinates(-1, 0));
+        list.add(new Coordinates(0, 0));
+        return solveRecourse(list);
+    }
+
+    public List<Coordinates> solveRecourse(List<Coordinates> list) {
         Coordinates current = list.getLast();
         Coordinates from = list.get(list.size() - 2);
-        if(current.xCols() == (width - 1) && current.yRows()== (height - 1))
-        {
+        if (current.xCols() == (width - 1) && current.yRows() == (height - 1)) {
             return list;
         }
-        if (current.xCols() + 1 < width) {
-            if (from.xCols() != current.xCols() + 1) {
-                if (!hasRightWall.get(current.yRows()).get(current.xCols())) {
-                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
-                    temp.add(new Coordinates(current.xCols()+1,current.yRows()));
-                    List<Coordinates> res = solve(temp);
-                    if(res!= null)
-                    {
-                        return res;
-                    }
-                }
+        if (current.xCols() + 1 < width && (from.xCols() != current.xCols() + 1)
+            && (!hasRightWall.get(current.yRows()).get(current.xCols()))) {
+            List<Coordinates> temp = new ArrayList<Coordinates>(list);
+            temp.add(new Coordinates(current.xCols() + 1, current.yRows()));
+            List<Coordinates> res = solveRecourse(temp);
+            if (res != null) {
+                return res;
+
             }
 
         }
-        if (current.xCols() - 1 >= 0) {
-            if (from.xCols() != current.xCols() - 1) {
-                if (!hasRightWall.get(current.yRows()).get(current.xCols()-1)) {
-                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
-                    temp.add(new Coordinates(current.xCols()-1,current.yRows()));
-                    List<Coordinates> res = solve(temp);
-                    if(res!= null)
-                    {
-                        return res;
-                    }
-                }
+        if (current.xCols() - 1 >= 0 && (from.xCols() != current.xCols() - 1)
+            && !hasRightWall.get(current.yRows()).get(current.xCols() - 1)) {
+            List<Coordinates> temp = new ArrayList<Coordinates>(list);
+            temp.add(new Coordinates(current.xCols() - 1, current.yRows()));
+            List<Coordinates> res = solveRecourse(temp);
+            if (res != null) {
+                return res;
+
             }
 
         }
-        if (current.yRows() + 1 < height) {
-            if (from.yRows() != current.yRows() + 1) {
-                if (!hasDownWall.get(current.yRows()).get(current.xCols())) {
-                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
-                    temp.add(new Coordinates(current.xCols(),current.yRows() + 1));
-                    List<Coordinates> res = solve(temp);
-                    if(res!= null)
-                    {
-                        return res;
-                    }
-                }
+        if (current.yRows() + 1 < height && (from.yRows() != current.yRows() + 1)
+            && (!hasDownWall.get(current.yRows()).get(current.xCols()))) {
+            List<Coordinates> temp = new ArrayList<Coordinates>(list);
+            temp.add(new Coordinates(current.xCols(), current.yRows() + 1));
+            List<Coordinates> res = solveRecourse(temp);
+            if (res != null) {
+                return res;
 
             }
         }
-        if (current.yRows() - 1 >= 0) {
-            if (from.yRows() != current.yRows() - 1) {
-                if (!hasDownWall.get(current.yRows() - 1).get(current.xCols())) {
-                    List<Coordinates> temp = new ArrayList<Coordinates>(list);
-                    temp.add(new Coordinates(current.xCols(),current.yRows() - 1));
-                    List<Coordinates> res = solve(temp);
-                    if(res!= null)
-                    {
-                        return res;
-                    }
-                }
+        if (current.yRows() - 1 >= 0 && (from.yRows() != current.yRows() - 1)
+            && (!hasDownWall.get(current.yRows() - 1).get(current.xCols()))) {
+            List<Coordinates> temp = new ArrayList<Coordinates>(list);
+            temp.add(new Coordinates(current.xCols(), current.yRows() - 1));
+            List<Coordinates> res = solveRecourse(temp);
+            if (res != null) {
+                return res;
             }
+
         }
         return null;
 
     }
 
-    public void printSolveMaze(List<Coordinates> list)
-    {
+    public void printSolveMaze(List<Coordinates> list) {
         System.out.print("##");
         for (int i = 0; i < width; i++) {
             System.out.print("####");
@@ -271,15 +269,14 @@ public class Maze {
                 System.out.print("  ");
             }
             for (int j = 0; j < width; j++) {
-                if(list.contains(new Coordinates(j,i))) {
+                if (list.contains(new Coordinates(j, i))) {
                     if (hasRightWall.get(i).get(j)) {
                         System.out.print("<>##");
 
                     } else {
                         System.out.print("<>  ");
                     }
-                }
-                else {
+                } else {
                     if (hasRightWall.get(i).get(j)) {
                         System.out.print("  ##");
 
