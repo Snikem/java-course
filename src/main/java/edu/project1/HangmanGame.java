@@ -33,7 +33,7 @@ public class HangmanGame {
     }
 
     private void startGame() {
-        guessingWord = new GuessingWord(new Dictionary().getRandomWord(path));
+        guessingWord = new GuessingWord(new Dictionary().getRandomWordFromFile(path));
         health = guessingWord.getWord().length();
         LOGGER.info("Game start");
         printTheGiessingWord();

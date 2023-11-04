@@ -13,7 +13,7 @@ public final class Main {
 
     public static void main(String[] args) {
         HangmanGame hg = new HangmanGame();
-        hg.turnOnGame("src\\\\main\\\\resources\\\\Dictionary.txt");
+        hg.turnOnGame("Dictionary.txt");
 
     }
 }
