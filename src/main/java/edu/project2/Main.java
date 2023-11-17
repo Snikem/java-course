@@ -14,7 +14,7 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-        Maze maze = new Maze(2, 2);
+        Maze maze = new Maze(10, 10);
         maze.printMaze2();
         List<Coordinates> list2 = maze.solve();
         maze.printSolveMaze(list2);
