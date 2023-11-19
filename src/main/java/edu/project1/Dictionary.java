@@ -16,7 +16,7 @@ public class Dictionary {
 
     public String getRandomWordFromFile(String pathInput) {
         String line = "";
-        int maxCountWords = 7;
+        int maxCountWords = 8;
         Random random = new Random();
         int quantityWords;
         int leftBoard;
